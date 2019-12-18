@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/usecases/get_board_solutions.dart';
@@ -56,20 +57,18 @@ main() {
           ]));
     });
 
-    test('Should emit [] when board hasn\'t solutions', () {
-      // arrange
-      when(mockGetBoardSolutions(any)).thenAnswer((_) async => List());
-      // act
-      bloc.add(CalculateSolutions(tN));
-      // assert
-      expectLater(
-          bloc,
-          emitsInOrder([
-            InitialQueensPuzzleState(),
-            LoadingQueensPuzzleState(),
-            ErrorQueensPuzzleState(
-                'Board size of ' + tN.toString() + ' hasn\'t solutions.'),
-          ]));
-    });
+    blocTest(
+      'Should emit [InitialQueensPuzzleState, LoadingQueensPuzzleState, ErrorQueensPuzzleState] when board hasn\'t solutions (Using bloc_test)',
+      build: () {
+        when(mockGetBoardSolutions(any)).thenAnswer((_) async => List());
+        return bloc;
+      },
+      act: (bloc) => bloc.add(CalculateSolutions(tN)),
+      expect: [
+        InitialQueensPuzzleState(),
+        LoadingQueensPuzzleState(),
+        isA<ErrorQueensPuzzleState>(),
+      ],
+    );
   });
 }
