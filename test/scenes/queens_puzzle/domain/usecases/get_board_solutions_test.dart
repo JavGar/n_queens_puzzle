@@ -21,11 +21,12 @@ main() {
   final List<List> sb4 = [s1, s2];
 
   test('Should get list of solutions from the repository', () async {
+    // arrange
     when(mockQueensPuzzleRepository.getBoardSolutions(any))
         .thenAnswer((_) async => sb4);
-
+    // act
     final result = await usecase(Params(tN));
-    
+    // assert
     expect(result, sb4);
     verify(mockQueensPuzzleRepository.getBoardSolutions(tN));
     verifyNoMoreInteractions(mockQueensPuzzleRepository);
