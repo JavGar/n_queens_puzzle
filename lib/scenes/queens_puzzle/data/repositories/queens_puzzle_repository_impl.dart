@@ -1,13 +1,18 @@
+import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/models/board_solution_model.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/repositories/queens_puzzle_repository.dart';
 
 class QueensPuzzleRepositoryImpl implements QueensPuzzleRepository {
   List<List> solutions;
+
   @override
-  Future<List<List>> getBoardSolutions(int N) async {
+  Future<BoardSolutionModel> getBoardSolutions(int N) async {
     solutions = new List();
     List board = new List(N);
+    final start = new DateTime.now();
     findSafeColumnByRowSolution(board, 0);
-    return solutions;
+    final end = new DateTime.now();
+    Duration difference = end.difference(start);
+    return BoardSolutionModel(solutions, difference.toString());
   }
 
   findSafeColumnByRowSolution(List queens, int rowIndex) {
