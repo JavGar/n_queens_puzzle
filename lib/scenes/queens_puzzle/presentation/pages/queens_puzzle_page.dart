@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/bloc/bloc.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/widgets/board_size_input_field.dart';
+import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/widgets/card_solution.dart';
 
 class QueensPuzzlePage extends StatelessWidget {
   @override
@@ -29,7 +30,7 @@ class QueensPuzzlePage extends StatelessWidget {
                 print("is loading");
                 return buildLoading();
               } else if (state is LoadedQueensPuzzleState) {
-                return buildBoard(context, state.solutions);
+                return buildSolutionList(context, state.solutions);
               } else if (state is ErrorQueensPuzzleState) {
                 return buildInitialInput();
               }
@@ -49,13 +50,30 @@ class QueensPuzzlePage extends StatelessWidget {
   Widget buildLoading() {
     print("building loadin");
     return Center(
-      child: Placeholder(),
+      child: CircularProgressIndicator(),
     );
   }
 
-  Column buildBoard(BuildContext context, List<List> solutions) {
-    List firstSolution = solutions[0];
+  Column buildSolutionList(BuildContext context, List<List> solutions) {
+    return Column(
+      children: <Widget>[
+        BoardSizeInputField(),
+        SizedBox(height: 16.0),
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (context, position) {
+              final solution = solutions[position];
+              final index = (position + 1).toString();
+              return CardSolution(index, solution);
+            },
+            itemCount: solutions.length,
+          ),
+        )
+      ],
+    );
+  }
 
+  Column buildBoard(BuildContext context, List firstSolution) {
     List<Widget> boardRows = List<Widget>();
     for (var row = 0; row < firstSolution.length; row++) {
       List<Widget> columns = List<Widget>();
@@ -87,13 +105,7 @@ class QueensPuzzlePage extends StatelessWidget {
     }
 
     return Column(
-      children: <Widget>[
-        BoardSizeInputField(),
-        SizedBox(height: 20),
-        Column(
-          children: boardRows,
-        )
-      ],
+      children: boardRows,
     );
   }
 }
