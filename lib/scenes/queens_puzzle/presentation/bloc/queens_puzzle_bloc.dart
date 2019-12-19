@@ -20,9 +20,9 @@ class QueensPuzzleBloc extends Bloc<QueensPuzzleEvent, QueensPuzzleState> {
     yield LoadingQueensPuzzleState();
 
     if (event is CalculateSolutions) {
-      final solutions = await getBoardSolutions(Params(event.sizeBoard));
-      if (solutions.length > 0) {
-        yield LoadedQueensPuzzleState(solutions);
+      final boardSolutionModel = await getBoardSolutions(Params(event.sizeBoard));
+      if (boardSolutionModel.solutions.length > 0) {
+        yield LoadedQueensPuzzleState(boardSolutionModel);
       } else {
         yield ErrorQueensPuzzleState('Board size of ' +
             event.sizeBoard.toString() +

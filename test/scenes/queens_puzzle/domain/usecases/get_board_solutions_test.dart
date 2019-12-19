@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/models/board_solution_model.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/repositories/queens_puzzle_repository.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/usecases/get_board_solutions.dart';
 
@@ -19,15 +20,16 @@ main() {
   final List s1 = [1, 3, 0, 2];
   final List s2 = [2, 0, 3, 1];
   final List<List> sb4 = [s1, s2];
+  final BoardSolutionModel tBoardSolutionModel = BoardSolutionModel(sb4, "dummy time");
 
   test('Should get list of solutions from the repository', () async {
     // arrange
     when(mockQueensPuzzleRepository.getBoardSolutions(any))
-        .thenAnswer((_) async => sb4);
+        .thenAnswer((_) async => tBoardSolutionModel);
     // act
     final result = await usecase(Params(tN));
     // assert
-    expect(result, sb4);
+    expect(result, tBoardSolutionModel);
     verify(mockQueensPuzzleRepository.getBoardSolutions(tN));
     verifyNoMoreInteractions(mockQueensPuzzleRepository);
   });

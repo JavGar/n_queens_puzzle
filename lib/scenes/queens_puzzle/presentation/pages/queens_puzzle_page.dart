@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/models/board_solution_model.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/bloc/bloc.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/widgets/board_size_input_field.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/widgets/card_solution.dart';
@@ -24,14 +25,11 @@ class QueensPuzzlePage extends StatelessWidget {
           },
           child: BlocBuilder<QueensPuzzleBloc, QueensPuzzleState>(
             builder: (context, state) {
-              if (state is InitialQueensPuzzleState) {
-                return buildInitialInput();
-              } else if (state is LoadingQueensPuzzleState) {
-                print("is loading");
+              if (state is LoadingQueensPuzzleState) {
                 return buildLoading();
               } else if (state is LoadedQueensPuzzleState) {
-                return buildSolutionList(context, state.solutions);
-              } else if (state is ErrorQueensPuzzleState) {
+                return buildSolutionList(context, state.boardSolutionModel);
+              } else {
                 return buildInitialInput();
               }
             },
@@ -54,10 +52,14 @@ class QueensPuzzlePage extends StatelessWidget {
     );
   }
 
-  Column buildSolutionList(BuildContext context, List<List> solutions) {
+  Column buildSolutionList(
+      BuildContext context, BoardSolutionModel boardSolutionModel) {
+    final solutions = boardSolutionModel.solutions;
     return Column(
       children: <Widget>[
         BoardSizeInputField(),
+        SizedBox(height: 4.0),
+        Text('Done in ' + boardSolutionModel.duration + ' h.'),
         SizedBox(height: 16.0),
         Expanded(
           child: ListView.builder(
