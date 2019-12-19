@@ -14,7 +14,6 @@ class BoardSizeInputField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: "Enter the board size",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          suffixIcon: Icon(Icons.arrow_right),
         ),
       ),
     );

@@ -42,8 +42,8 @@ class QueensPuzzlePage extends StatelessWidget {
   }
 
   Widget buildInitialInput() {
-    return Center(
-      child: BoardSizeInputField(),
+    return Column(
+      children: <Widget>[BoardSizeInputField()],
     );
   }
 
@@ -70,42 +70,6 @@ class QueensPuzzlePage extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-
-  Column buildBoard(BuildContext context, List firstSolution) {
-    List<Widget> boardRows = List<Widget>();
-    for (var row = 0; row < firstSolution.length; row++) {
-      List<Widget> columns = List<Widget>();
-      for (var col = 0; col < firstSolution.length; col++) {
-        var color = Colors.white;
-
-        if (((row % 2) + (col % 2)) % 2 == 0) {
-          color = Color.fromRGBO(160, 82, 45, 1);
-        } else {
-          color = Color.fromRGBO(160, 82, 45, 0.1);
-        }
-
-        if (firstSolution[row] == col) {
-          color = Colors.black;
-        }
-
-        columns.add(Expanded(
-          child: Container(
-            color: color,
-            height: MediaQuery.of(context).size.width / firstSolution.length,
-            child: Text(''),
-          ),
-        ));
-      }
-      final rowBoard = Row(
-        children: columns,
-      );
-      boardRows.add(rowBoard);
-    }
-
-    return Column(
-      children: boardRows,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/pages/board_page.dart';
 
 class CardSolution extends StatelessWidget {
   final String index;
@@ -12,13 +13,11 @@ class CardSolution extends StatelessWidget {
       child: ListTile(
         title: Text('Solution #$index'),
         onTap: () {
-          solutionDetail();
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => BoardPage(index, solution),
+          ));
         },
       ),
     );
-  }
-
-  void solutionDetail() {
-    print(solution);
   }
 }
