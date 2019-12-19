@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:n_quees_puzzle/scenes/queens_puzzle/data/repositories/queens_puzzle_repository_impl.dart';
-import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/usecases/get_board_solutions.dart';
+import 'package:n_quees_puzzle/injection.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/bloc/bloc.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/presentation/pages/queens_puzzle_page.dart';
+import 'injection.dart' as injection;
 
-void main() => runApp(MyApp());
+void main(){
+  injection.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -17,8 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        builder: (context) =>
-            QueensPuzzleBloc(GetBoardSolutions(QueensPuzzleRepositoryImpl())),
+        builder: (context) => gi<QueensPuzzleBloc>(),
         child: QueensPuzzlePage(),
       ),
     );
