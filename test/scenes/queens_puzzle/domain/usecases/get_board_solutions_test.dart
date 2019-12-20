@@ -20,7 +20,7 @@ main() {
   final List s1 = [1, 3, 0, 2];
   final List s2 = [2, 0, 3, 1];
   final List<List> sb4 = [s1, s2];
-  final BoardSolutionModel tBoardSolutionModel = BoardSolutionModel(sb4, "dummy time");
+  final BoardSolutionModel tBoardSolutionModel = BoardSolutionModel(tN, sb4, "dummy time");
 
   test('Should get list of solutions from the repository', () async {
     // arrange
