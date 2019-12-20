@@ -12,3 +12,12 @@ class CalculateSolutions extends QueensPuzzleEvent {
   @override
   List<Object> get props => [sizeBoard];
 }
+
+class GetSolutions extends QueensPuzzleEvent {
+  final int sizeBoard;
+
+  GetSolutions(this.sizeBoard);
+
+  @override
+  List<Object> get props => [sizeBoard];
+}
