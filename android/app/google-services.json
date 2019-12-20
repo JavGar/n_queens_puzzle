@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "594510707842",
+    "firebase_url": "https://n-queens-puzzle-924c8.firebaseio.com",
+    "project_id": "n-queens-puzzle-924c8",
+    "storage_bucket": "n-queens-puzzle-924c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594510707842:android:a1bb84af13ec95e244489b",
+        "android_client_info": {
+          "package_name": "cuenca.hjgc.n_quees_puzzle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594510707842-ktih7gkhm7juira2mi2cpmkphmec0o00.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL3NM_rMURtDQTgDhXjcmczVCjxbGdkF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594510707842-ktih7gkhm7juira2mi2cpmkphmec0o00.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
