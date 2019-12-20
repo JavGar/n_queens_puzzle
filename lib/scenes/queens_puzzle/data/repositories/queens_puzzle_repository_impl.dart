@@ -20,15 +20,35 @@ class QueensPuzzleRepositoryImpl implements QueensPuzzleRepository {
   }
 
   @override
+  Future<BoardSolutionModel> getStoredBoardSolutions(int N) async {
+    final start = new DateTime.now();
+    DocumentSnapshot documentSnapshot = await Firestore.instance
+        .collection('boards')
+        .document("sb-" + N.toString())
+        .get();
+    if (documentSnapshot.data != null) {
+      var boardSolution = BoardSolutionModel.fromJson(documentSnapshot.data);
+      final end = new DateTime.now();
+      Duration difference = end.difference(start);
+      boardSolution.getTime = difference.toString();
+      return boardSolution;
+    }
+    return null;
+  }
+
+  @override
   Future<BoardSolutionModel> getBoardSolutions(int N) async {
     solutions = new List();
     List board = new List(N);
     final start = new DateTime.now();
     findSafeColumnByRowSolution(board, 0);
-    final end = new DateTime.now();
+    var end = new DateTime.now();
     Duration difference = end.difference(start);
     var boardSolution = BoardSolutionModel(N, solutions, difference.toString());
     await storeBoardSolutions(boardSolution);
+    end = new DateTime.now();
+    difference = end.difference(start);
+    boardSolution.getTime = difference.toString();
     return boardSolution;
   }
 

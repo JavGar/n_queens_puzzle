@@ -3,5 +3,7 @@ import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/models/board_solution
 abstract class QueensPuzzleRepository {
   Future<BoardSolutionModel> getBoardSolutions(int N);
 
+  Future<BoardSolutionModel> getStoredBoardSolutions(int N);
+
   Future storeBoardSolutions(BoardSolutionModel boardSolutionModel);
 }
