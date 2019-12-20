@@ -47,11 +47,11 @@ class _BoardSizeInputField extends State<BoardSizeInputField> {
 
   void submitBoardSize() {
     BlocProvider.of<QueensPuzzleBloc>(context).add(
-        CalculateSolutions(int.parse(inputString)));
+        CalculateSolutions(inputString));
   }
 
   void searchSolution() {
     BlocProvider.of<QueensPuzzleBloc>(context).add(
-        GetSolutions(int.parse(inputString)));
+        GetSolutions(inputString));
   }
 }
