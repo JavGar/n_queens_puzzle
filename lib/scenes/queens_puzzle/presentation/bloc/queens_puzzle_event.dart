@@ -5,7 +5,7 @@ abstract class QueensPuzzleEvent extends Equatable {
 }
 
 class CalculateSolutions extends QueensPuzzleEvent {
-  final int sizeBoard;
+  final String sizeBoard;
 
   CalculateSolutions(this.sizeBoard);
 
@@ -14,7 +14,7 @@ class CalculateSolutions extends QueensPuzzleEvent {
 }
 
 class GetSolutions extends QueensPuzzleEvent {
-  final int sizeBoard;
+  final String sizeBoard;
 
   GetSolutions(this.sizeBoard);
 

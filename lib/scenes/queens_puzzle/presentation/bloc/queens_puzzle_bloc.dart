@@ -22,20 +22,45 @@ class QueensPuzzleBloc extends Bloc<QueensPuzzleEvent, QueensPuzzleState> {
     yield LoadingQueensPuzzleState();
 
     if (event is CalculateSolutions) {
-      final boardSolutionModel = await getBoardSolutions(Params(event.sizeBoard));
-      if (boardSolutionModel.solutions.length > 0) {
-        yield LoadedQueensPuzzleState(boardSolutionModel);
-      } else {
-        yield ErrorQueensPuzzleState('Board size of ' +
-            event.sizeBoard.toString() +
-            ' hasn\'t solutions.');
+      try {
+        int sizeBoard = int.parse(event.sizeBoard);
+
+        if (sizeBoard < 1) {
+          yield ErrorQueensPuzzleState('Size not supported');
+        } else {
+          final boardSolutionModel = await getBoardSolutions(Params(sizeBoard));
+          if (boardSolutionModel.solutions.length > 0) {
+            yield LoadedQueensPuzzleState(boardSolutionModel);
+          } else {
+            yield ErrorQueensPuzzleState('Board size of ' +
+                sizeBoard.toString() +
+                ' hasn\'t solutions.');
+          }
+        }
+      } catch (e) {
+        yield ErrorQueensPuzzleState(
+            'Value \'' + event.sizeBoard + '\' is not numeric');
       }
     } else if (event is GetSolutions) {
-      final boardSolutionModel = await getStoredBoardSolutions(Params(event.sizeBoard));
-      if (boardSolutionModel != null) {
-        yield LoadedQueensPuzzleState(boardSolutionModel);
-      } else {
-        yield ErrorQueensPuzzleState('Board size of ' + event.sizeBoard.toString() + ' hasn\'t been calculated.');
+      try {
+        int sizeBoard = int.parse(event.sizeBoard);
+
+        if (sizeBoard < 1) {
+          yield ErrorQueensPuzzleState('Size not supported');
+        } else {
+          final boardSolutionModel =
+              await getStoredBoardSolutions(Params(sizeBoard));
+          if (boardSolutionModel != null) {
+            yield LoadedQueensPuzzleState(boardSolutionModel);
+          } else {
+            yield ErrorQueensPuzzleState('Board size of ' +
+                sizeBoard.toString() +
+                ' hasn\'t been calculated.');
+          }
+        }
+      } catch (e) {
+        yield ErrorQueensPuzzleState(
+            'Value \'' + event.sizeBoard + '\' is not numeric');
       }
     } else {
       yield ErrorQueensPuzzleState('Event not supported');
