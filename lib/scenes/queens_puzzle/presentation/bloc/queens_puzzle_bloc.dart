@@ -17,25 +17,37 @@ class QueensPuzzleBloc extends Bloc<QueensPuzzleEvent, QueensPuzzleState> {
 
   @override
   Stream<QueensPuzzleState> mapEventToState(
-    QueensPuzzleEvent event,
-  ) async* {
+      QueensPuzzleEvent event,
+      ) async* {
     yield LoadingQueensPuzzleState();
 
     if (event is CalculateSolutions) {
-      final boardSolutionModel = await getBoardSolutions(Params(event.sizeBoard));
-      if (boardSolutionModel.solutions.length > 0) {
-        yield LoadedQueensPuzzleState(boardSolutionModel);
+      if (event.sizeBoard < 1) {
+        yield ErrorQueensPuzzleState('Size not supported');
       } else {
-        yield ErrorQueensPuzzleState('Board size of ' +
-            event.sizeBoard.toString() +
-            ' hasn\'t solutions.');
+        final boardSolutionModel =
+        await getBoardSolutions(Params(event.sizeBoard));
+        if (boardSolutionModel.solutions.length > 0) {
+          yield LoadedQueensPuzzleState(boardSolutionModel);
+        } else {
+          yield ErrorQueensPuzzleState('Board size of ' +
+              event.sizeBoard.toString() +
+              ' hasn\'t solutions.');
+        }
       }
     } else if (event is GetSolutions) {
-      final boardSolutionModel = await getStoredBoardSolutions(Params(event.sizeBoard));
-      if (boardSolutionModel != null) {
-        yield LoadedQueensPuzzleState(boardSolutionModel);
+      if (event.sizeBoard < 1) {
+        yield ErrorQueensPuzzleState('Size not supported');
       } else {
-        yield ErrorQueensPuzzleState('Board size of ' + event.sizeBoard.toString() + ' hasn\'t been calculated.');
+        final boardSolutionModel =
+        await getStoredBoardSolutions(Params(event.sizeBoard));
+        if (boardSolutionModel != null) {
+          yield LoadedQueensPuzzleState(boardSolutionModel);
+        } else {
+          yield ErrorQueensPuzzleState('Board size of ' +
+              event.sizeBoard.toString() +
+              ' hasn\'t been calculated.');
+        }
       }
     } else {
       yield ErrorQueensPuzzleState('Event not supported');
