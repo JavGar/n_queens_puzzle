@@ -1,16 +1,26 @@
 # n_quees_puzzle
 
-A new Flutter application.
+An little application to solve N Queens Puzzle.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This application works for Android an iOS.
 
-A few resources to get you started if this is your first Flutter project:
+To calculate the solutions enter the number of queens you want and
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- In Android emulator: tap the action button in the keyboard
+- In iOS emulator: press "intro" key
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To search for stored solutions just enter the number of queen and tap "Search" button
+
+Once the solutions have been calculated / obtained, a list of solutions is shown, when you touch one the application shows the solution on a chess board.
+
+## How its work
+
+Each time the application calculates the solutions for N queens, it tries to send the result to Firebase, if there is a previous result the current one is discarded.
+
+Whe the user search for stored solution, the application try to get it from Firebase, if there isn't shows a message else list all the solutions
+
+## References
+- [N-queens problem](https://rosettacode.org/wiki/N-queens_problem#Dart)
+- [One of the oldest chess based puzzles is known, affectionately, as The Eight Queens Problem.](http://datagenetics.com/blog/august42012/index.html)
