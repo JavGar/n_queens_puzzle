@@ -3,16 +3,19 @@ import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/models/board_solution
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/repositories/queens_puzzle_repository.dart';
 
 class QueensPuzzleRepositoryImpl implements QueensPuzzleRepository {
+  final Firestore _repository;
   List<List> solutions;
+
+  QueensPuzzleRepositoryImpl(this._repository);
 
   @override
   Future storeBoardSolutions(BoardSolutionModel boardSolutionModel) async {
-    DocumentSnapshot documentSnapshot = await Firestore.instance
+    DocumentSnapshot documentSnapshot = await _repository
         .collection('boards')
         .document("sb-" + boardSolutionModel.boardSize.toString())
         .get();
     if (documentSnapshot.data == null) {
-      await Firestore.instance
+      await _repository
           .collection("boards")
           .document("sb-" + boardSolutionModel.boardSize.toString())
           .setData(boardSolutionModel.toJson());
@@ -22,7 +25,7 @@ class QueensPuzzleRepositoryImpl implements QueensPuzzleRepository {
   @override
   Future<BoardSolutionModel> getStoredBoardSolutions(int N) async {
     final start = new DateTime.now();
-    DocumentSnapshot documentSnapshot = await Firestore.instance
+    DocumentSnapshot documentSnapshot = await _repository
         .collection('boards')
         .document("sb-" + N.toString())
         .get();

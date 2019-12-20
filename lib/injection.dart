@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/data/repositories/queens_puzzle_repository_impl.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/repositories/queens_puzzle_repository.dart';
@@ -15,5 +16,7 @@ init() {
   gi.registerLazySingleton(() => GetStoredBoardSolutions(gi()));
 
   gi.registerLazySingleton<QueensPuzzleRepository>(
-      () => QueensPuzzleRepositoryImpl());
+      () => QueensPuzzleRepositoryImpl(gi()));
+
+  gi.registerLazySingleton(() => Firestore.instance);
 }
