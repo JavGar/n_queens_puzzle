@@ -46,7 +46,6 @@ class QueensPuzzlePage extends StatelessWidget {
   }
 
   Widget buildLoading() {
-    print("building loadin");
     return Center(
       child: CircularProgressIndicator(),
     );

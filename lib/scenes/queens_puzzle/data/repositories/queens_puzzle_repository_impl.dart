@@ -1,8 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/models/board_solution_model.dart';
 import 'package:n_quees_puzzle/scenes/queens_puzzle/domain/repositories/queens_puzzle_repository.dart';
 
 class QueensPuzzleRepositoryImpl implements QueensPuzzleRepository {
   List<List> solutions;
+
+  @override
+  Future storeBoardSolutions(BoardSolutionModel boardSolutionModel) async {
+    DocumentSnapshot documentSnapshot = await Firestore.instance
+        .collection('boards')
+        .document("sb-" + boardSolutionModel.boardSize.toString())
+        .get();
+    if (documentSnapshot.data == null) {
+      await Firestore.instance
+          .collection("boards")
+          .document("sb-" + boardSolutionModel.boardSize.toString())
+          .setData(boardSolutionModel.toJson());
+    }
+  }
 
   @override
   Future<BoardSolutionModel> getBoardSolutions(int N) async {
@@ -12,7 +27,9 @@ class QueensPuzzleRepositoryImpl implements QueensPuzzleRepository {
     findSafeColumnByRowSolution(board, 0);
     final end = new DateTime.now();
     Duration difference = end.difference(start);
-    return BoardSolutionModel(solutions, difference.toString());
+    var boardSolution = BoardSolutionModel(N, solutions, difference.toString());
+    await storeBoardSolutions(boardSolution);
+    return boardSolution;
   }
 
   findSafeColumnByRowSolution(List queens, int rowIndex) {
