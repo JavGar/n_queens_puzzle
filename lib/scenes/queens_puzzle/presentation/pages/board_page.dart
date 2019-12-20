@@ -37,16 +37,24 @@ class BoardPage extends StatelessWidget {
         }
 
         if (solution[row] == col) {
-          color = Colors.black;
+          columns.add(Expanded(
+            child: Container(
+              color: color,
+              height: MediaQuery.of(context).size.width / solution.length,
+              child: Image(
+                image: AssetImage("images/queen.png"),
+              ),
+            ),
+          ));
+        } else {
+          columns.add(Expanded(
+            child: Container(
+              color: color,
+              height: MediaQuery.of(context).size.width / solution.length,
+              child: Text(''),
+            ),
+          ));
         }
-
-        columns.add(Expanded(
-          child: Container(
-            color: color,
-            height: MediaQuery.of(context).size.width / solution.length,
-            child: Text(''),
-          ),
-        ));
       }
       final rowBoard = Row(
         children: columns,
