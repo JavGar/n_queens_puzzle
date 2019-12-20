@@ -58,7 +58,8 @@ class QueensPuzzlePage extends StatelessWidget {
       children: <Widget>[
         BoardSizeInputField(),
         SizedBox(height: 4.0),
-        Text('Done in ' + boardSolutionModel.duration + ' h.'),
+        Text('Calculated in ' + boardSolutionModel.calculationTime + ' h.'),
+        Text('Shown in ' + boardSolutionModel.getTime + ' h.'),
         SizedBox(height: 16.0),
         Expanded(
           child: ListView.builder(
