@@ -40,7 +40,7 @@ main() {
       // arrange
       setUpMockGetBoardSolutions();
       // act
-      bloc.add(CalculateSolutions(tN));
+      bloc.add(CalculateSolutions(tN.toString()));
       await untilCalled(mockGetBoardSolutions(any));
       // assert
       verify(mockGetBoardSolutions(Params(tN)));
@@ -52,7 +52,7 @@ main() {
       // arrange
       setUpMockGetBoardSolutions();
       // act
-      bloc.add(CalculateSolutions(tN));
+      bloc.add(CalculateSolutions(tN.toString()));
       // assert
       expectLater(
           bloc,
@@ -69,7 +69,7 @@ main() {
         when(mockGetBoardSolutions(any)).thenAnswer((_) async => BoardSolutionModel(tN, List(), "dummy time"));
         return bloc;
       },
-      act: (bloc) => bloc.add(CalculateSolutions(tN)),
+      act: (bloc) => bloc.add(CalculateSolutions(tN.toString())),
       expect: [
         InitialQueensPuzzleState(),
         LoadingQueensPuzzleState(),
